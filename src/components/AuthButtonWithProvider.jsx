@@ -5,7 +5,6 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   signInWithRedirect,
-  signInWithPopup,
 } from "firebase/auth";
 
 const AuthButtonWithProvider = ({ Icon, label, provider }) => {
@@ -15,7 +14,7 @@ const AuthButtonWithProvider = ({ Icon, label, provider }) => {
 
   const handleClick = async () => {
     if (provider == "GoogleAuthProvider") {
-      await signInWithPopup(auth, googleAuthProvider)
+      await signInWithRedirect(auth, googleAuthProvider)
         .then((result) => {
           console.log(result);
         })
