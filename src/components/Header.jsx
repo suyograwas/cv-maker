@@ -8,6 +8,7 @@ import { HiLogout } from "react-icons/hi";
 import { FadeInOutWithOpacity, slideUpDownMenu } from "../animations";
 import { auth } from "../config/firebase.config";
 import { useQueryClient } from "react-query";
+import { adminIds } from "../utils/helpers";
 
 const Header = () => {
   const { data, isLoading, isError } = useUser();
@@ -21,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full flex items-center justify-between px-4 py-3 lg:px-8 border-b border-gray-300 bg-bgPrimary z-50 gap-12 sticky top-4">
+    <header className="w-full flex items-center justify-between px-4 py-3 lg:px-8 border-b border-gray-300 bg-bgPrimary z-50 gap-12 sticky top-0 ">
       <Link to={"/"}>
         <img src={Logo} alt="" className="w-12 h-auto object-contain" />
       </Link>
@@ -93,12 +94,14 @@ const Header = () => {
                         >
                           My Account
                         </Link>
-                        <Link
-                          className="text-txtLight hover:text-txtDark text-base whitespace-nowrap "
-                          to={"/template/create"}
-                        >
-                          Add New Template
-                        </Link>
+                        {adminIds.includes(data?.uid) && (
+                          <Link
+                            className="text-txtLight hover:text-txtDark text-base whitespace-nowrap "
+                            to={"/template/create"}
+                          >
+                            Add New Template
+                          </Link>
+                        )}
                         <div
                           className="
                       w-full px-2 py-2 border-t border-gray-300 flex items-center justify-between group cursor-pointer "
