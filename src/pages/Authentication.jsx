@@ -12,9 +12,6 @@ const Authentication = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("error", isLoading);
-    console.log("error", data);
-
     if (!isLoading && data) navigate("/", { replace: true });
   }, [isLoading, data]);
 

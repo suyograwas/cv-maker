@@ -1,5 +1,12 @@
 // import {auth} from "../config/firebase.config";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { auth, db } from "../config/firebase.config";
 
 export const getUserDetail = () => {
@@ -26,5 +33,19 @@ export const getUserDetail = () => {
       //make sure to unsubscribe from the listener to prevent the memory links
       unsubscribe();
     });
+  });
+};
+
+export const getTemplates = () => {
+  return new Promise((resolve, reject) => {
+    const templatesQuery = query(
+      collection(db, "templates"),
+      orderBy("timestamp", "asc")
+    );
+    const unsubscribe = onSnapshot(templatesQuery, (querySnap) => {
+      const templates = querySnap.docs.map((doc) => doc.data());
+      resolve(templates);
+    });
+    return unsubscribe;
   });
 };
