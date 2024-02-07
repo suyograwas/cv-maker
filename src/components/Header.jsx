@@ -9,6 +9,7 @@ import { FadeInOutWithOpacity, slideUpDownMenu } from "../animations";
 import { auth } from "../config/firebase.config";
 import { useQueryClient } from "react-query";
 import { adminIds } from "../utils/helpers";
+import useFilters from "../hooks/useFilters";
 
 const Header = () => {
   const { data, isLoading, isError } = useUser();
@@ -21,6 +22,22 @@ const Header = () => {
     });
   };
 
+  const { data: filterData } = useFilters();
+
+  const handleSearchTerm = (e) => {
+    queryClient.setQueryData("globalFilter", {
+      ...queryClient.getQueryData("globalFilter"),
+      searchTerm: e.target.value,
+    });
+  };
+
+  const clearFilter = () => {
+    queryClient.setQueryData("globalFilter", {
+      ...queryClient.getQueryData("globalFilter"),
+      searchTerm: "",
+    });
+  };
+
   return (
     <header className="w-full flex items-center justify-between px-4 py-3 lg:px-8 border-b border-gray-300 bg-bgPrimary z-50 gap-12 sticky top-0 ">
       <Link to={"/"}>
@@ -28,10 +45,23 @@ const Header = () => {
       </Link>
       <div className=" flex-1 border border-gray-300 px-4 py-1 rounded-md flex items-center justify-between bg-gray-200">
         <input
+          value={filterData?.searchTerm ? filterData?.searchTerm : ""}
+          onChange={handleSearchTerm}
           type="text"
           placeholder="Search here .... "
           className="flex-1 h-10 bg-transparent text-base font-semibold outline-none border-none"
         />
+        <AnimatePresence>
+          {filterData?.searchTerm.length > 0 && (
+            <motion.div
+              onClick={clearFilter}
+              {...FadeInOutWithOpacity}
+              className="w-8 h-8 flex items-center justify-center bg-gray-300 rounded-md cursor-pointer active:scale-95 duration-150"
+            >
+              <p className="text-xl text-black">X</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <AnimatePresence>
         {isLoading ? (
