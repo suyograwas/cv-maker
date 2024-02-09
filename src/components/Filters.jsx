@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { MdLayersClear } from "react-icons/md";
-import { AnimatePresence, motion } from "framer-motion";
 import { slideUpDownWithScale } from "../animations";
 import { FiltersData } from "../utils/helpers";
 import useFilters from "../hooks/useFilters";
 import { useQueryClient } from "react-query";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Filters = () => {
   const [isClearHovered, setIsClearHovered] = useState(false);

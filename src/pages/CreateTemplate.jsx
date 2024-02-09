@@ -201,7 +201,7 @@ const CreateTemplate = () => {
         />
 
         {/* file upload section */}
-        <div className="w-full bg-gray-100 backdrop-blur-md h-[420px] lg:h-[620px] 2xl:h-[740px] rounded-md border-2 border-dotted border-gray-300 cursor-pointer flex items-center justify-center">
+        <div className="w-full bg-gray-100 backdrop-blur-md h-auto lg:h-[400px] 2xl:h-[450px] rounded-md border-2 border-dotted border-gray-300 cursor-pointer flex items-center justify-center">
           {imageAsset.isImageLoading ? (
             <React.Fragment>
               <div className="flex flex-col items-center justify-center gap-4">
@@ -288,10 +288,10 @@ const CreateTemplate = () => {
           <React.Fragment>
             {templates && templates.length > 0 ? (
               <React.Fragment>
-                <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4">
+                <div className="w-full  grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
                   {templates?.map((template) => (
                     <div
-                      className="w-full h-[500px] rounded-md overflow-hidden relative"
+                      className="w-full h-[400px] rounded-md overflow-hidden relative"
                       key={template._id}
                     >
                       <img
