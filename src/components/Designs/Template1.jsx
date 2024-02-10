@@ -368,11 +368,65 @@ const Template1 = () => {
       });
   };
 
-  const generateImage = async () => {};
+  const generateImage = async () => {
+    const element = resumeRef.current;
+    if (!element) {
+      toast.info("unable to capture the content at a movement");
+      return;
+    }
 
-  const generatePng = async () => {};
+    htmlToImage
+      .toJpeg(element)
+      .then((dataUrl) => {
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = "resume.jpeg";
+        a.click();
+      })
+      .catch((error) => {
+        toast.error(`Error : ${error.message}`);
+      });
+  };
 
-  const generateSvg = async () => {};
+  const generatePng = async () => {
+    const element = resumeRef.current;
+    if (!element) {
+      toast.info("unable to capture the content at a movement");
+      return;
+    }
+
+    htmlToImage
+      .toPng(element)
+      .then((dataUrl) => {
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = "resume.png";
+        a.click();
+      })
+      .catch((error) => {
+        toast.error(`Error : ${error.message}`);
+      });
+  };
+
+  const generateSvg = async () => {
+    const element = resumeRef.current;
+    if (!element) {
+      toast.info("unable to capture the content at a movement");
+      return;
+    }
+
+    htmlToImage
+      .toSvg(element)
+      .then((dataUrl) => {
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = "resume.svg";
+        a.click();
+      })
+      .catch((error) => {
+        toast.error(`Error : ${error.message}`);
+      });
+  };
 
   if (resume_isLoading) return <MainSpinner />;
 
